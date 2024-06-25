@@ -1,0 +1,2 @@
+cookie = ""
+alt_cookie = ""
