@@ -7,7 +7,7 @@ messy for now
 
 i = 0
 def build_emoji(guess,puzzleSol):
-    matrix = [0,0,0,0,0]
+    matrix = ["", "", "", "", ""]
     scount = dict()
     guessed_letters = dict()
 
@@ -24,10 +24,10 @@ def build_emoji(guess,puzzleSol):
     for li2, letter in enumerate(guess):
         #print(guessed_letters[letter], solution.count(letter))
         
-        if letter in solution and guessed_letters[letter] < solution.count(letter) and  matrix[li2] == 0:
+        if letter in solution and guessed_letters[letter] < solution.count(letter) and  matrix[li2] == "":
             matrix[li2] = "🟨"
             guessed_letters[letter] = guessed_letters[letter] + 1
-        elif letter in solution and guessed_letters[letter] >= solution.count(letter) and  matrix[li2] == 0:
+        elif letter in solution and guessed_letters[letter] >= solution.count(letter) and  matrix[li2] == "":
             matrix[li2] = "⬛"
         elif letter not in solution:
             matrix[li2] = "⬛"
@@ -36,9 +36,13 @@ def build_emoji(guess,puzzleSol):
     #print(matrix)
 
     #print(matrix)
-    for i in matrix:
-       print(i, end="")
-    print("")
+    s = ""
+    stremoji = s.join(matrix) # joins into one string
+    return stremoji
+    
+    #for i in matrix:
+    #   print(i, end="")
+    #print("")
    # print(guessed_letters)
     
         
