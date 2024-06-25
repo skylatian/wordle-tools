@@ -13,8 +13,6 @@ start_date = "2023-02-05"
 sheet_start_date = str(get_last_date()) #datetime.strptime(start_date, date_format_out)
 end_date = datetime.today()
 
-print(datetime.strptime(sheet_start_date, date_format_out))
-
 try:
     sheet_start_date = datetime.strptime(sheet_start_date, date_format_out)
     start_date = sheet_start_date
