@@ -10,7 +10,7 @@ from pprint import pprint
 import requests
 from credentials import cookie as imported_cookie
 from credentials import alt_cookie as alt_cookie
-from wordleMatrix import build_emoji
+from functions.wordleMatrix import build_emoji
 
 #COOKIE = alt_cookie
 COOKIE = imported_cookie

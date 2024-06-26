@@ -1,6 +1,6 @@
-from director import get_puzzle
+from functions.director import get_puzzle
 from datetime import datetime, timedelta, date
-from sheets_handler import append, append_rows, get_last_date
+from functions.sheets_handler import append, append_rows, get_last_date
 import time
 from pprint import pprint
 import math
