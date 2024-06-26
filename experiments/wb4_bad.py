@@ -1,4 +1,7 @@
-''' builds the wordle matrix of emoji guesses from input '''
+''' builds the wordle matrix of emoji guesses from input 
+    actually not entirely sure what was wrong with this. 
+    might've thought I made a mistake and didn't, it's a lot cleaner than wb3
+'''
 
 def get_solution_by_date():
     ''' get the solution to the wordle puzzle by date. input date in format YYYY-MM-DD '''
@@ -6,7 +9,7 @@ def get_solution_by_date():
 
 solution = 'sassy'
 
-guesses = ['sxxxx', "ssxxx", "sssxx", "ssssx"]
+guesses = ['sssss', "ssxxx", "sssxx", "sxxss"]
 
 i = 0
 def build_emoji(guess):
@@ -31,8 +34,6 @@ def build_emoji(guess):
     return array
     #print(matrix)
     #print(guessed_letters)
-    
-        
 
 for i, eachg in enumerate(guesses):
     i = i+1
@@ -43,4 +44,3 @@ for i, eachg in enumerate(guesses):
     for i in matrix[i]:
         print(i, end="")
     print("")
-
