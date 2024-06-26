@@ -31,17 +31,22 @@ def chunked():
     '''
     splits sheet write operations into chunks to avoid rate limit
     used by default
-    '''
+    
+    the logic is definitely overcomplicated and is probably already a library somewhere
 
-    count = len(list(daterange(start_date, end_date)))
+    it splits up the list of dates into chunks, loads data for each chunk into a list,
+    then writes that list to the sheet.
+    
+    '''
+    dateList = list(daterange(start_date, end_date))
+    count = len(dateList)
+
     print("number of dates:", count)
 
     div = 10 # divisor
     firstloops = math.floor(count / div)
     finalLoop = count % div
     print(firstloops, finalLoop)
-
-    dateList = list(daterange(start_date, end_date))
 
     for i in range(firstloops):
         new_entries = []
