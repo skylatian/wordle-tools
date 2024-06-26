@@ -17,7 +17,7 @@ from wordleMatrix import build_emoji
 #COOKIE = alt_cookie
 COOKIE = imported_cookie
 
-PUZZLE_DATE = '2023-02-06' #"2023-02-03" # "2024-06-25"
+PUZZLE_DATE = '2023-02-25' #"2023-02-03" # "2024-06-25"
 
 # retrieve puzzle ID from puzzle date
 puzzledata = requests.get(f"https://www.nytimes.com/svc/wordle/v2/{PUZZLE_DATE}.json",timeout=10).json()
