@@ -1,29 +1,31 @@
-from combo_func import get_data
+from combo_func import get_puzzle
 from datetime import datetime, timedelta, date
-from sync_to_sheets import append, get_last_date
+from sheets_handler import append, get_last_date
+import time
 
 #latest_date = all_values[len(all_values)-1][0]
 #latest_date = "Feb 03 2023"
-date_format_in = '%b %d %Y'
-date_format_out = '%Y-%m-%d'
+date_format = '%Y-%m-%d'
 
-start_date = "2023-02-03"
+start_override = None # "2023-02-03"
+start_default = "2023-02-03"
 
-#start_date = datetime.strptime(latest_date, date_format_in) + timedelta(days=1)
-sheet_start_date = str(get_last_date()) #datetime.strptime(start_date, date_format_out)
+prev_date = get_last_date()
 end_date = datetime.today()
+
 
 
     #start_date = datetime.strptime(start_date, date_format_out)
     #end_date = datetime.strptime(end_date, date_format_out)
 
-try:
-    sheet_start_date = datetime.strptime(sheet_start_date, date_format_out)
-    start_date = datetime(sheet_start_date)
-    
-    print("Previous date found in sheet:", start_date)
-except Exception:
-    print("Invalid date format, defaulting to", start_date)
+if start_override is not None:
+    start_date = datetime.strptime(start_override, date_format)
+elif start_override is None and prev_date is not None:
+    start_date = prev_date + timedelta(days=1)
+elif prev_date is None and start_override is None:
+    print("Error: no start date or override provided. defaulting to", start_default)
+    start_date = datetime.strptime(start_default, date_format)
+    time.sleep(0)
 
 def daterange(start, end):
     '''Generate a range of dates from start_date to end_date.'''
@@ -32,18 +34,14 @@ def daterange(start, end):
 
 for single_date in daterange(start_date, end_date):
 
-    single_date = (str(single_date.strftime(date_format_out)))
+    single_date = (str(single_date.strftime(date_format)))
     print(single_date)
     
-    output = get_data(single_date)
+    emoji, play, puzzle, stats = get_puzzle(single_date)
     
-    if output == None:
-        output = "no data"    
-    if '\n' not in output:
-        output = "No Attempt Made"
-
-    print(output)
+    #print(output)
 
     #build new row:
-    row = [single_date, output]
+    row = [single_date, emoji, stats] 
+    ## CHANGE THIS TO BUILD IN CHUNKS OF ROWS TO AVOID THE RATE LIMIT!!
     append(row)

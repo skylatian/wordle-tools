@@ -12,16 +12,17 @@ from credentials import cookie as imported_cookie
 from credentials import alt_cookie as alt_cookie
 from wordleMatrix import build_emoji
 
-
 #COOKIE = alt_cookie
 COOKIE = imported_cookie
 
-PUZZLE_DATE = '2023-02-11' #"2023-02-03" # "2024-06-25"
+PUZZLE_DATE = '2023-02-23' #"2023-02-03" # "2024-06-25"
 
 # retrieve puzzle ID from puzzle date
 puzzledata = requests.get(f"https://www.nytimes.com/svc/wordle/v2/{PUZZLE_DATE}.json",timeout=10).json()
 PUZZLE_ID = puzzledata['id']
 puzzleSol = puzzledata['solution']
+game_date = puzzledata['print_date']
+print("date:", game_date)
 
 response_date = requests.get(
     f"https://www.nytimes.com/svc/wordle/v2/{PUZZLE_DATE}.json",
@@ -58,6 +59,7 @@ else:
     print_date = states['print_date']
 
     game_data = states['game_data']
+
 
     #pprint(game_data)
 
