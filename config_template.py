@@ -1,0 +1,22 @@
+## Times Credentials ##
+cookie = ""
+alt_cookie = ""
+
+
+## Sheets Config ##
+gspread_credentials = {
+  "type": "service_account",
+  "project_id": "",
+  "private_key_id": "",
+  "private_key": "",
+  "client_email": "",
+  "client_id": "",
+  "auth_uri": "",
+  "token_uri": "",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "",
+  "universe_domain": "googleapis.com"
+}
+
+sheetkey =  ""
+worksheetID = 0 #number

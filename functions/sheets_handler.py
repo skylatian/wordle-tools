@@ -1,14 +1,15 @@
 import requests
-from datetime import datetime, timedelta
-from credentials import cookie as imported_cookie, alt_cookie as alt_cookie, sheetkey as sheetkey
-import gspread
-import time
+from datetime import datetime
 from ratelimit import limits, sleep_and_retry
+import gspread
+
+from config import cookie as imported_cookie,  alt_cookie, sheetkey, worksheetID, gspread_credentials
+
 
 # Set up gspread and open the worksheet
-gc = gspread.oauth()
+gc = gspread.service_account_from_dict(gspread_credentials)
 sh = gc.open_by_key(sheetkey)
-worksheet = sh.get_worksheet(0)
+worksheet = sh.get_worksheet_by_id(worksheetID)
 
 DATE_FORMAT = '%Y-%m-%d' # date format for the sheet (ex 2023-06-25)
 
@@ -28,7 +29,7 @@ def get_last_date():
 
 
 @sleep_and_retry
-@limits(calls=10, period=60) # https://pypi.org/project/ratelimit/
+@limits(calls=60, period=60) # https://pypi.org/project/ratelimit/
 def append(var_in: list):
     #worksheet = open_sheet()
     
@@ -37,12 +38,9 @@ def append(var_in: list):
         #time.sleep(0.1)
     except Exception:
         print("rate limited") # waiting 30 seconds")
-        #time.sleep(30)
 
-#print(get_last_date())
-
-#@sleep_and_retry
-#@limits(calls=60, period=60) # https://pypi.org/project/ratelimit/
+@sleep_and_retry
+@limits(calls=60, period=60) # https://pypi.org/project/ratelimit/
 def append_rows(var_in: list):
 
     worksheet.append_rows(var_in, value_input_option='USER_ENTERED')  # append each row to the worksheet

@@ -8,8 +8,7 @@ It then builds the emoji guess matrix from the retieved data
 
 from pprint import pprint
 import requests
-from credentials import cookie as imported_cookie
-from credentials import alt_cookie as alt_cookie
+from credentials import cookie as imported_cookie, alt_cookie
 from functions.wordleMatrix import build_emoji
 
 #COOKIE = alt_cookie
@@ -56,6 +55,6 @@ def get_puzzle(PUZZLE_DATE):
     #pprint(playdata)
 
     if playdata['states'] == []:
-        return "No Attempt Made", None, None, None
+        return None, "No Attempt Made", None, None
     else:
         return parse_puzzle(playdata,puzzledata), playdata, puzzledata, (playdata['states'][0]['game_data'])['status']

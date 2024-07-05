@@ -8,7 +8,7 @@ import math
 date_format = '%Y-%m-%d'
 
 start_override =  None # "2023-02-03"
-start_default = "2023-02-03"
+start_default = "2022-1-1"
 
 prev_date = get_last_date()
 end_date = datetime.today()

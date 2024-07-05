@@ -44,6 +44,3 @@ def build_emoji(guess,puzzleSol):
     #   print(i, end="")
     #print("")
    # print(guessed_letters)
-    
-        
-
