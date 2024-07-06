@@ -61,6 +61,7 @@ def chunked(user, start_date, end_date):
             single_date = (str(dateList[i*div + y].strftime(date_format)))
             #print(single_date)
             emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)    
+            emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)    
             new_entries.append([single_date, emoji, status])
             pprint(new_entries)
         append_rows(worksheet, new_entries)
@@ -73,6 +74,7 @@ def chunked(user, start_date, end_date):
 
         single_date = (str(dateList[(firstloops*div)+i].strftime(date_format)))
         print(single_date)
+        emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)
         emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)
         new_entries.append([single_date, emoji, status])
 
