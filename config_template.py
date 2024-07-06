@@ -1,6 +1,6 @@
 ## Times Credentials ##
-cookie = ""
-alt_cookie = ""
+cookie1 = ""
+cookie2 = ""
 
 
 ## Sheets Config ##
@@ -20,3 +20,12 @@ gspread_credentials = {
 
 sheetkey =  ""
 worksheetID = 0 #number
+
+class User:
+    def __init__(self, cookie, wsID):
+        self.wsID = wsID
+        self.cookie = cookie
+        self.worksheet = None
+
+user1 = User(cookie1,685824496)
+user2 = User(cookie2,92270942)
