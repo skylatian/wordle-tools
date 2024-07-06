@@ -2,6 +2,7 @@
 cookie1 = ""
 cookie2 = ""
 
+DATE_FORMAT = '%Y-%m-%d' # date format for the sheet (ex 2023-06-25)
 
 ## Sheets Config ##
 gspread_credentials = {
@@ -22,10 +23,15 @@ sheetkey =  ""
 worksheetID = 0 #number
 
 class User:
-    def __init__(self, cookie, wsID, worksheet=None):
+    list = [] # https://medium.com/@morevinyl/cool-python-track-all-instances-of-a-class-easily-even-2610368d7896
+    def __init__(self, cookie, wsID):
         self.wsID = wsID
         self.cookie = cookie
         self.worksheet = None
+        self.sheetkey = sheetkey
+        self.gsc = gspread_credentials
+        self.date_format = DATE_FORMAT
+        User.list.append(self)
 
 user1 = User(cookie1,685824496)
 user2 = User(cookie2,92270942)
