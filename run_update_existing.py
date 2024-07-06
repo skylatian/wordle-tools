@@ -1,5 +1,3 @@
-import gc
-
 from runner import runnerd
 from config import *
 
