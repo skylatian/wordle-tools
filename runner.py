@@ -15,7 +15,7 @@ def start_date_handler(usr, start_override=None, start_default=None):
     if start_default is None:
         start_default = "2022-1-1"
 
-    prev_date = get_last_date(usr.worksheet)
+    prev_date = get_last_date(usr.worksheet,usr.date_format)
     end_date = datetime.today()
 
     if start_override is not None:
@@ -50,7 +50,7 @@ def chunked(user, start_date, end_date):
 
     print("number of dates:", count)
 
-    div = 5 # divisor
+    div = 2 # divisor
     firstloops = math.floor(count / div)
     finalLoop = count % div
     print(firstloops, finalLoop)
@@ -68,7 +68,7 @@ def chunked(user, start_date, end_date):
 
     print("last loop")
     new_entries = []
-            
+
     for i in range(finalLoop):
 
         single_date = (str(dateList[(firstloops*div)+i].strftime(date_format)))

@@ -9,12 +9,12 @@ from config import * #cookie1 as imported_cookie,  cookie2, sheetkey, User, gspr
 # Set up gspread and open the worksheet
 def setup_sheet(user):
     ''' Set up gspread and open the worksheet'''
-    gc = gspread.service_account_from_dict(gspread_credentials)
-    sh = gc.open_by_key(sheetkey)
+    gc = gspread.service_account_from_dict(user.gsc)
+    sh = gc.open_by_key(user.sheetkey)
     worksheet = sh.get_worksheet_by_id(user.wsID)
     return worksheet
 
-def get_last_date(worksheet):
+def get_last_date(worksheet, DATE_FORMAT):
     ''' Get the latest date recorded in the sheet as a datetime object'''
     #worksheet = open_sheet()
     try:
