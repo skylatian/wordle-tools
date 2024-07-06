@@ -29,8 +29,8 @@ def get_last_date(worksheet):
 
 @sleep_and_retry
 @limits(calls=60, period=60) # https://pypi.org/project/ratelimit/
-def append_rows(worksheet, var_in: list):
+def append_rows(usr, var_in: list):
 
-    worksheet.append_rows(var_in, value_input_option='USER_ENTERED')  # append each row to the worksheet
+    usr.worksheet.append_rows(var_in, value_input_option='USER_ENTERED')  # append each row to the worksheet
     #time.sleep(0.5)
 # https://docs.gspread.org/en/v5.1.0/api.html
