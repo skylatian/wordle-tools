@@ -1,33 +1,39 @@
-from functions.director import get_puzzle
-from datetime import datetime, timedelta, date
-from functions.sheets_handler import append, append_rows, get_last_date
+from datetime import datetime, timedelta
 import time
 from pprint import pprint
 import math
 
+from functions.puzzle_processing import get_puzzle
+from functions.sheets_handler import append_rows, get_last_date, setup_sheet
+
 date_format = '%Y-%m-%d'
 
-start_override =  "2023-12-25"
-start_default = "2022-1-1"
+def start_date_handler(worksheet, start_override=None, start_default=None):
+    ''' determines the start date'''
 
-prev_date = get_last_date()
-end_date = datetime.today()
+    if start_default is None:
+        start_default = "2022-1-1"
 
-if start_override is not None:
-    start_date = datetime.strptime(start_override, date_format)
-elif start_override is None and prev_date is not None:
-    start_date = prev_date + timedelta(days=1)
-elif prev_date is None and start_override is None:
-    print("Error: no start date or override provided. defaulting to", start_default)
-    start_date = datetime.strptime(start_default, date_format)
-    time.sleep(0)
+    prev_date = get_last_date(worksheet)
+    end_date = datetime.today()
+
+    if start_override is not None:
+        start_date = datetime.strptime(start_override, date_format)
+    elif start_override is None and prev_date is not None:
+        start_date = prev_date + timedelta(days=1)
+    elif prev_date is None and start_override is None:
+        print("Error: no start date or override provided. defaulting to", start_default)
+        start_date = datetime.strptime(start_default, date_format)
+        time.sleep(0)
+    
+    return start_date, end_date
 
 def daterange(start, end):
     '''Generate a range of dates from start_date to end_date.'''
     for n in range((end - start).days + 1):
         yield start + timedelta(n)
 
-def chunked():
+def chunked(worksheet, start_date, end_date):
     '''
     splits sheet write operations into chunks to avoid rate limit
     used by default
@@ -52,11 +58,11 @@ def chunked():
         new_entries = []
         for y in range(div):
             single_date = (str(dateList[i*div + y].strftime(date_format)))
-            print(single_date)
+            #print(single_date)
             emoji, play, puzzle, status = get_puzzle(single_date)    
             new_entries.append([single_date, emoji, status])
             pprint(new_entries)
-        append_rows(new_entries)
+        append_rows(worksheet, new_entries)
         print("----")
 
     print("last loop")
@@ -70,25 +76,13 @@ def chunked():
         new_entries.append([single_date, emoji, status])
 
     pprint(new_entries)
-    append_rows(new_entries)
+    append_rows(worksheet, new_entries)
 
-def single():
+## MAIN ##
+def runnerd(usr, start_override=None):
+    worksheet = setup_sheet(usr)
+    start_date, end_date = start_date_handler(worksheet,start_override)
+    chunked(worksheet, start_date, end_date)
+    
 
-    ''' 
-    writes to sheet one row at a time, no chunking.
-    usually hits rate limit. included for posterity/example
-    '''
-
-    for single_date in daterange(start_date, end_date):
-
-        single_date = (str(single_date.strftime(date_format)))
-        print(single_date)
-        
-        emoji, play, puzzle, status = get_puzzle(single_date)
-
-        #build new row:
-        row = [single_date, emoji, status] 
-        append(row)
-
-chunked()
-#single()
+## END MAIN ##

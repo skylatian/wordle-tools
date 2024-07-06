@@ -1,4 +1,4 @@
-from functions.director import get_puzzle
+from functions.puzzle_processing import get_puzzle
 from pprint import pprint
 
 single_date = "2024-06-18" #"2024-04-06"

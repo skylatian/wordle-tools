@@ -8,14 +8,57 @@ It then builds the emoji guess matrix from the retieved data
 
 from pprint import pprint
 import requests
-from config import cookie as imported_cookie, alt_cookie
-from functions.wordleMatrix import build_emoji
+from config import cookie1 as imported_cookie, cookie2
+#from functions.build_grid import build_emoji
 
-#COOKIE = alt_cookie
-COOKIE = imported_cookie
-
+COOKIE = cookie2
+#COOKIE = imported_cookie
 
 # retrieve puzzle ID from puzzle date
+
+def build_emoji(guess,puzzleSol):
+    '''
+    builds the wordle matrix of emoji guesses from input
+    messy for now
+    '''
+    matrix = ["", "", "", "", ""]
+    scount = dict()
+    guessed_letters = dict()
+
+    solution = puzzleSol
+    for letter in guess:
+        scount[letter] = (solution.count(letter))
+        guessed_letters[letter] = 0
+
+    for li, letter in enumerate(guess):
+        if solution[li] == letter:
+            matrix[li] = "🟩"
+            guessed_letters[letter] = guessed_letters[letter] + 1
+
+    for li2, letter in enumerate(guess):
+        #print(guessed_letters[letter], solution.count(letter))
+        
+        if letter in solution and guessed_letters[letter] < solution.count(letter) and  matrix[li2] == "":
+            matrix[li2] = "🟨"
+            guessed_letters[letter] = guessed_letters[letter] + 1
+        elif letter in solution and guessed_letters[letter] >= solution.count(letter) and  matrix[li2] == "":
+            matrix[li2] = "⬛"
+        elif letter not in solution:
+            matrix[li2] = "⬛"
+            #print(matrix)
+        #print(guessed_letters, solution.count(letter))
+    #print(matrix)
+
+    #print(matrix)
+    s = ""
+    stremoji = s.join(matrix) # joins into one string
+    return stremoji
+    
+    #for i in matrix:
+    #   print(i, end="")
+    #print("")
+   # print(guessed_letters)
+
 
 def parse_emoji(game_data,solution):
     '''send data to emoji builder'''

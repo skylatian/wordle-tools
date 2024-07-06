@@ -3,7 +3,7 @@
 from pprint import pprint
 import requests
 
-from config import cookie as imported_cookie
+from config import cookie1 as imported_cookie
 
 # initial credit to https://www.reddit.com/r/crossword/comments/14h59a2/comment/kgeawqb/
 # (https://github.com/sinakhalili/sinakhalili.com)
