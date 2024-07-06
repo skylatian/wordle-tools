@@ -109,9 +109,9 @@ def get_puzzle(COOKIE, PUZZLE_DATE):
 
     if attempt_flag == 0:
         #print('return no attempt')
-        return ['N/A', None, None, 'NOT_STARTED'] # emoji, playdata, puzzledata, status
+        return ['N/A', None, None, 'NOT_STARTED',0] # emoji, playdata, puzzledata, status
     elif attempt_flag == 1:
         #pprint(playdata["states"])
-        out = parse_puzzle(playdata,puzzledata), playdata, puzzledata, (playdata['states'][0]['game_data'])['status'] # emoji, playdata, puzzledata, status
+        out = ( parse_puzzle(playdata,puzzledata), playdata, puzzledata, (playdata['states'][0]['game_data'])['status'], playdata['states'][0]['game_data']['currentRowIndex']) # emoji, playdata, puzzledata, status
         #pprint(out)
         return out

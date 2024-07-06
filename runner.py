@@ -5,6 +5,7 @@ import math
 
 from functions.puzzle_processing import get_puzzle
 from functions.sheets_handler import append_rows, get_last_date, setup_sheet
+from config import *
 
 date_format = '%Y-%m-%d'
 
@@ -50,7 +51,7 @@ def chunked(user, start_date, end_date):
 
     print("number of dates:", count)
 
-    div = 2 # divisor
+    div = conf.group_split # divisor
     firstloops = math.floor(count / div)
     finalLoop = count % div
     print(firstloops, finalLoop)
@@ -60,8 +61,8 @@ def chunked(user, start_date, end_date):
         for y in range(div):
             single_date = (str(dateList[i*div + y].strftime(date_format)))
             #print(single_date) 
-            emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)    
-            new_entries.append([single_date, emoji, status])
+            emoji, play, puzzle, status,guesses = get_puzzle(user.cookie, single_date)    
+            new_entries.append([single_date, emoji, status,guesses])
             pprint(new_entries)
         append_rows(user, new_entries)
         print("----")
@@ -73,8 +74,8 @@ def chunked(user, start_date, end_date):
 
         single_date = (str(dateList[(firstloops*div)+i].strftime(date_format)))
         print(single_date)
-        emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)
-        new_entries.append([single_date, emoji, status])
+        emoji, play, puzzle, status, guesses = get_puzzle(user.cookie, single_date)
+        new_entries.append([single_date, emoji, status,guesses]) # new_entries.append([single_date, emoji, status, play['states'][0]['game_data']['currentRowIndex']])
 
     pprint(new_entries)
     append_rows(user, new_entries)

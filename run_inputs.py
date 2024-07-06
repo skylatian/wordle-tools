@@ -1,6 +1,5 @@
 from runner import runnerd
 from config import *
-from functions.sheets_handler import setup_sheet
 #runnerd()
 
 # parameters we want:
