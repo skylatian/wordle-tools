@@ -7,7 +7,7 @@ import math
 
 date_format = '%Y-%m-%d'
 
-start_override =  None # "2023-02-03"
+start_override =  "2023-12-25"
 start_default = "2022-1-1"
 
 prev_date = get_last_date()
@@ -52,9 +52,10 @@ def chunked():
         new_entries = []
         for y in range(div):
             single_date = (str(dateList[i*div + y].strftime(date_format)))
-            emoji, play, puzzle, stats = get_puzzle(single_date)
-            new_entries.append([single_date, emoji, stats])
-        pprint(new_entries)
+            print(single_date)
+            emoji, play, puzzle, status = get_puzzle(single_date)    
+            new_entries.append([single_date, emoji, status])
+            pprint(new_entries)
         append_rows(new_entries)
         print("----")
 
@@ -64,8 +65,9 @@ def chunked():
     for i in range(finalLoop):
 
         single_date = (str(dateList[(firstloops*div)+i].strftime(date_format)))
-        emoji, play, puzzle, stats = get_puzzle(single_date)
-        new_entries.append([single_date, emoji, stats])
+        print(single_date)
+        emoji, play, puzzle, status = get_puzzle(single_date)
+        new_entries.append([single_date, emoji, status])
 
     pprint(new_entries)
     append_rows(new_entries)
@@ -82,10 +84,10 @@ def single():
         single_date = (str(single_date.strftime(date_format)))
         print(single_date)
         
-        emoji, play, puzzle, stats = get_puzzle(single_date)
+        emoji, play, puzzle, status = get_puzzle(single_date)
 
         #build new row:
-        row = [single_date, emoji, stats] 
+        row = [single_date, emoji, status] 
         append(row)
 
 chunked()

@@ -8,7 +8,7 @@ It then builds the emoji guess matrix from the retieved data
 
 from pprint import pprint
 import requests
-from credentials import cookie as imported_cookie, alt_cookie
+from config import cookie as imported_cookie, alt_cookie
 from functions.wordleMatrix import build_emoji
 
 #COOKIE = alt_cookie
@@ -53,8 +53,29 @@ def get_puzzle(PUZZLE_DATE):
     playdata = requests.get(wordle_endpoint,headers=headers,timeout=10).json()
     
     #pprint(playdata)
+    #pprint(playdata['states'][0]['game_data']['boardState'])
+
+    attempt_flag = 0
+
 
     if playdata['states'] == []:
-        return None, "No Attempt Made", None, None
+        attempt_flag = 0
+        #print('empty states')
+        #print(playdata['states'])
+    elif playdata['states'][0]['game_data']['boardState'] == ['', '', '', '', '', '']:
+        attempt_flag = 0
+        #print('full states no attempt')
+        #print(playdata['states'][0]['game_data']['boardState'])
     else:
-        return parse_puzzle(playdata,puzzledata), playdata, puzzledata, (playdata['states'][0]['game_data'])['status']
+        #print(playdata['states'][0]['game_data']['boardState'])
+        #print('attempt!')
+        attempt_flag = 1
+
+    if attempt_flag == 0:
+        #print('return no attempt')
+        return ['N/A', None, None, 'NOT_STARTED'] # emoji, playdata, puzzledata, status
+    elif attempt_flag == 1:
+        #pprint(playdata["states"])
+        out = parse_puzzle(playdata,puzzledata), playdata, puzzledata, (playdata['states'][0]['game_data'])['status'] # emoji, playdata, puzzledata, status
+        #pprint(out)
+        return out
