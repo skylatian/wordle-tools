@@ -35,6 +35,7 @@ def daterange(start, end):
         yield start + timedelta(n)
 
 def chunked(user, start_date, end_date):
+def chunked(user, start_date, end_date):
     '''
     splits sheet write operations into chunks to avoid rate limit
     used by default
