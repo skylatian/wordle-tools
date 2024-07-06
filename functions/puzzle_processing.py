@@ -6,15 +6,7 @@ It then builds the emoji guess matrix from the retieved data
 
 '''
 
-from pprint import pprint
 import requests
-from config import cookie1 as imported_cookie, cookie2
-#from functions.build_grid import build_emoji
-
-COOKIE = cookie2
-#COOKIE = imported_cookie
-
-# retrieve puzzle ID from puzzle date
 
 def build_emoji(guess,puzzleSol):
     '''
@@ -59,7 +51,6 @@ def build_emoji(guess,puzzleSol):
     #print("")
    # print(guessed_letters)
 
-
 def parse_emoji(game_data,solution):
     '''send data to emoji builder'''
 
@@ -86,11 +77,13 @@ def parse_puzzle(playdata,puzzledata):
 
     return parse_emoji(game_data,solution)
 
-def get_puzzle(PUZZLE_DATE):
+def get_puzzle(COOKIE, PUZZLE_DATE):
+
+    ''' get the puzzle data from the API, given a user cookie and a puzzle date '''
 
     puzzledata = requests.get(f"https://www.nytimes.com/svc/wordle/v2/{PUZZLE_DATE}.json",timeout=10).json()
     puzzle_id = puzzledata['id']
-
+    
     wordle_endpoint = f"https://www.nytimes.com/svc/games/state/wordleV2/latests?puzzle_ids={puzzle_id}"
     headers = {'Cookie': f'NYT-S=${COOKIE}'}
     playdata = requests.get(wordle_endpoint,headers=headers,timeout=10).json()

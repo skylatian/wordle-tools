@@ -21,3 +21,7 @@ default = "2022-01-01"
 #print(user2.wsID)
 
 runnerd(user1)
+user = user1
+
+COOKIE = user.cookie
+wsID = user.wsID

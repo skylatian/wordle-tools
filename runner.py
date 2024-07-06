@@ -8,6 +8,7 @@ from functions.sheets_handler import append_rows, get_last_date, setup_sheet
 
 date_format = '%Y-%m-%d'
 
+
 def start_date_handler(worksheet, start_override=None, start_default=None):
     ''' determines the start date'''
 
@@ -33,7 +34,7 @@ def daterange(start, end):
     for n in range((end - start).days + 1):
         yield start + timedelta(n)
 
-def chunked(worksheet, start_date, end_date):
+def chunked(user, start_date, end_date):
     '''
     splits sheet write operations into chunks to avoid rate limit
     used by default
@@ -59,7 +60,7 @@ def chunked(worksheet, start_date, end_date):
         for y in range(div):
             single_date = (str(dateList[i*div + y].strftime(date_format)))
             #print(single_date)
-            emoji, play, puzzle, status = get_puzzle(single_date)    
+            emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)    
             new_entries.append([single_date, emoji, status])
             pprint(new_entries)
         append_rows(worksheet, new_entries)
@@ -72,7 +73,7 @@ def chunked(worksheet, start_date, end_date):
 
         single_date = (str(dateList[(firstloops*div)+i].strftime(date_format)))
         print(single_date)
-        emoji, play, puzzle, status = get_puzzle(single_date)
+        emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)
         new_entries.append([single_date, emoji, status])
 
     pprint(new_entries)
@@ -80,9 +81,9 @@ def chunked(worksheet, start_date, end_date):
 
 ## MAIN ##
 def runnerd(usr, start_override=None):
-    worksheet = setup_sheet(usr)
+    usr.worksheet = setup_sheet(usr)
     start_date, end_date = start_date_handler(worksheet,start_override)
-    chunked(worksheet, start_date, end_date)
+    chunked(usr, start_date, end_date)
     
 
 ## END MAIN ##
