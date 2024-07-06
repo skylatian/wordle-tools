@@ -50,7 +50,7 @@ def chunked(user, start_date, end_date):
 
     print("number of dates:", count)
 
-    div = 10 # divisor
+    div = 5 # divisor
     firstloops = math.floor(count / div)
     finalLoop = count % div
     print(firstloops, finalLoop)
@@ -59,12 +59,11 @@ def chunked(user, start_date, end_date):
         new_entries = []
         for y in range(div):
             single_date = (str(dateList[i*div + y].strftime(date_format)))
-            #print(single_date)
-            emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)    
+            #print(single_date) 
             emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)    
             new_entries.append([single_date, emoji, status])
             pprint(new_entries)
-        append_rows(worksheet, new_entries)
+        append_rows(user, new_entries)
         print("----")
 
     print("last loop")
@@ -74,7 +73,6 @@ def chunked(user, start_date, end_date):
 
         single_date = (str(dateList[(firstloops*div)+i].strftime(date_format)))
         print(single_date)
-        emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)
         emoji, play, puzzle, status = get_puzzle(user.cookie, single_date)
         new_entries.append([single_date, emoji, status])
 
@@ -86,6 +84,5 @@ def runnerd(usr, start_override=None):
     usr.worksheet = setup_sheet(usr)
     start_date, end_date = start_date_handler(usr,start_override)
     chunked(usr, start_date, end_date)
-    
 
 ## END MAIN ##

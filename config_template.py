@@ -22,7 +22,7 @@ sheetkey =  ""
 worksheetID = 0 #number
 
 class User:
-    def __init__(self, cookie, wsID):
+    def __init__(self, cookie, wsID, worksheet=None):
         self.wsID = wsID
         self.cookie = cookie
         self.worksheet = None
