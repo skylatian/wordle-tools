@@ -1,1 +1,0 @@
-unless run from a script in root, the credentials file will need to be copied to this folder, or the scripts to be moved to the root directory
