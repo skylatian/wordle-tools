@@ -2,7 +2,9 @@
 credentials.py
 *.pyc
 *.csv
-gspread/* 
+config.py
+.DS_Store
+gspread/*
 ignore*
 ### below from https://github.com/github/gitignore/blob/main/Python.gitignore
 
